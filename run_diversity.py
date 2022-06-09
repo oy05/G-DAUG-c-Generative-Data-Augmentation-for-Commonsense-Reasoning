@@ -11,7 +11,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--dir",
-    default= "eda/",
+    default= "backtranslation/",
     type=str,
     help=
     "The input data dir. Should contain the .tsv files (or other data files) for the task."
