@@ -625,32 +625,17 @@ def main():
     #eval_dataset = eval_dataset[:200,:]
     #print(eval_dataset
     #)
-    if not args.load_hvp:
-        grad = get_validation_grad(args, eval_dataset, model)
-        if args.no_hessian:
-            HVP = grad
-        else:
-            HVP = get_HVP(args, train_dataset, model, grad, args)
-        torch.save(
-            HVP, args.output_dir + "HVP_" + str(args.train_batch_size) + "b_" +
-            str(args.t) + "t_" + str(args.r) + "r")
-    else:
-        HVP = torch.load(args.output_dir + "HVP_" +
-                         str(args.train_batch_size) + "b_" + str(args.t) +
-                         "t_" + str(args.r) + "r")
+    grad = get_validation_grad(args, eval_dataset, model)
+    HVP = get_HVP(args, train_dataset, model, grad, args)
+    torch.save(
+        HVP, args.output_dir + "HVP_" + str(args.train_batch_size) + "b_" +
+        str(args.t) + "t_" + str(args.r) + "r")
     influences = get_influence(args, fake_dataset, model, HVP, args)
-    if args.no_hessian:
-        np.save(
-            os.path.join(args.output_dir,
-                         "train_data_influences_no_hessian" + ".npy"),
-            influences)
-    else:
-        np.save(
-            os.path.join(
-                args.output_dir,
-                "fake_data_300000_influences" + str(args.train_batch_size) +
-                "b_" + str(args.t) + "t_" + str(args.r) + "r" + ".npy"),
-            influences)
+    np.save(
+        os.path.join(
+            args.output_dir,
+            "influence.npy"),
+        influences)
 
 
 if __name__ == "__main__":
