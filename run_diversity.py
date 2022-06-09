@@ -11,7 +11,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument(
     "--dir",
-    default= "/net/nfs.websail/yyv959/winogrande/train_l/fake-medium-sym-influence-600000/",
+    default= "eda/",
     type=str,
     help=
     "The input data dir. Should contain the .tsv files (or other data files) for the task."
@@ -19,7 +19,7 @@ parser.add_argument(
 
 parser.add_argument(
     "--output_dir",
-    default= "/net/nfs.websail/yyv959/winogrande/train_l/fake-medium-sym-200000-unigram-influence/",
+    default= "baseline_yang/",
     type=str,
     help=
     "The input data dir. Should contain the .tsv files (or other data files) for the task."
@@ -27,7 +27,7 @@ parser.add_argument(
 
 parser.add_argument(
     "--sample_size",
-    default=132848 ,
+    default=200 ,
     type=int,
     help=
     "The input data dir. Should contain the .tsv files (or other data files) for the task."
@@ -60,7 +60,7 @@ def tokenize(str):
 
 
 print("build vocab")
-with open(dir + "train.csv", 'r', encoding='utf-8') as f:
+with open(dir + "tweets.csv", 'r', encoding='utf-8') as f:
     reader = csv.reader(f)
     header = next(reader)
     for i, line in tqdm(enumerate(reader)):
